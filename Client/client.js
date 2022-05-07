@@ -59,9 +59,9 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   let { from } = msg;
 
-  if (msg.body == "היי") {
-    let media = await MessageMedia.fromUrl(
-      "https://internet-promotion.co.il/wp-content/uploads/2022/04/לוגו-1-01.png"
+  if (msg.body == "התחל") {
+    let media = await MessageMedia.fromFilePath(
+      "images\logo.png"
     );
 
     await client.sendMessage(from, media);
@@ -94,7 +94,7 @@ client.on("message", async (msg) => {
     `
     );
     client.sendMessage(from, media);
-  }
+  } 
 });
 
 function sendMsg(from) {
