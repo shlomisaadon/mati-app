@@ -57,7 +57,7 @@ client.on("ready", () => {
 });
 
 client.on("message", async (msg) => {
-  let { from } = msg;
+  let { from,  } = msg;
 
   if (msg.body == "התחל") {
     let media = await MessageMedia.fromFilePath(
@@ -94,7 +94,16 @@ client.on("message", async (msg) => {
     `
     );
     client.sendMessage(from, media);
-  } 
+  }  else if (msg.body.find('מעוניין במנוי')) {
+    client.sendMessage(
+      from,
+      `
+*היי ${from.pushname}*
+נשמח לראותך בין לקוחותינו
+    `
+    );
+    client.sendMessage(from, media);
+  }
 });
 
 function sendMsg(from) {
