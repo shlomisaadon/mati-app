@@ -59,33 +59,30 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   let { from,  } = msg;
 
-  if (msg.body == "התחל") {
-    let media = await MessageMedia.fromFilePath(
-      "images\logo.png"
-    );
+  if (msg.body.includes("התחל")) {
+    console.log(msg)
+    const contact = await msg.getContact();
+    let media = await MessageMedia.fromFilePath("./images/logo.png");
 
     await client.sendMessage(from, media);
     client.sendMessage(
       from,
       `
-*היי נעים מאוד* 
-אנחנו מתעסקים בשיווק דיגיטלי 
-פייסבוק, אינסטגרם, גוגל, טאבולה
-בעלי תעודות מקצוע בתכנות אתרים 
-*ושיווק דיגיטלי 🤖*
-
+${contact.pushname}
+*היי נעים מאוד*
 *ברוך הבא לבוט החכם שלנו*
 *לשעות הפעילות*
-השב: שעות
+השב/י: שעות
 *לרכישת מנוי*
-השב: אני מעוניין במנוי
+השב: אני מעוניינ/ת במנוי
 *משהו אחר*
-השב: משהו אחר
+השב/י: משהו אחר
 
       `
     );
-  } else if (msg.body == "שעות") {
-    const media = await MessageMedia.fromFilePath("./images/img.png");
+  } else if (msg.body.includes("שעות")  ) {
+    console.log(msg.body)
+    const media = await MessageMedia.fromFilePath("./images/imgTime.png");
     client.sendMessage(
       from,
       `
@@ -94,13 +91,23 @@ client.on("message", async (msg) => {
     `
     );
     client.sendMessage(from, media);
-  }  else if (msg.body.find('מעוניין במנוי')) {
+  }  else if (msg.body.includes('במנוי') || msg.body == "אני מעוניין במנוי") {
     client.sendMessage(
       from,
       `
-*היי ${from.pushname}*
+*היי*
 נשמח לראותך בין לקוחותינו
     `
+    );
+    client.sendMessage(from, media);
+  } else if (msg.body.includes('משהו אחר') ) {
+    client.sendMessage(
+      from,
+      `
+*הייs*
+אני מבין שאתה מתעניין
+ במשהו אחר תוכל לפרט יותר?    
+ `
     );
     client.sendMessage(from, media);
   }
