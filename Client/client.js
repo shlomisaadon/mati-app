@@ -58,8 +58,26 @@ client.on("ready", () => {
 
 client.on("message", async (msg) => {
   let { from,  } = msg;
+  let chat = await msg.getChat();
+  const start = ['שלום','היי','מה קורה']
 
-  if (msg.body = 'התחל') {
+
+  // IF it`s not group
+  if (!chat.isGroup) {
+
+  // Start Msg
+if(msg.body == 'שלום'){
+  const contact = await msg.getContact();
+  client.sendMessage(from,
+  `
+*${contact.pushname} היי נעים מאוד*
+רוצה לדבר עם הבוט החכה שלנו
+השב: התחל
+  `)
+} 
+
+//If User send MSG - התחל
+else if (msg.body == 'התחל') {
     console.log(msg)
     const contact = await msg.getContact();
     let media = await MessageMedia.fromFilePath("./images/logo.png");
@@ -68,7 +86,6 @@ client.on("message", async (msg) => {
     client.sendMessage(
       from,
       `
-*${contact.pushname} היי נעים מאוד*
 *ברוך הבא לבוט החכם שלנו*
 *לשעות הפעילות*
 השב/י: שעות פעילות
@@ -81,7 +98,12 @@ client.on("message", async (msg) => {
 בתודה צוות הדיגיטל (●'◡'●)
       `
     );
-  } else if (msg.body.includes("שעות")  ) {
+  
+  
+  } 
+
+//If send req for hours
+else if (msg.body.includes("שעות")  ) {
     console.log(msg.body)
     const media = await MessageMedia.fromFilePath("./images/imgTime.png");
     client.sendMessage(
@@ -92,30 +114,39 @@ client.on("message", async (msg) => {
     `
     );
     client.sendMessage(from, media);
-  }  else if (msg.body.includes('במנוי') || msg.body == "אני מעוניין במנוי") {
+  } 
+  
+//If send req for signup
+else if (msg.body.includes('במנוי') || msg.body == "אני מעוניין במנוי") {
+    client.sendMessage(
+      from,
+      `
+   נשמח לראותך בין לקוחותינו
+   השאר בבקשה 
+   *מספר טלפון* 
+   *שם מלא*
+   *סוג מנוי*
+   נציג מטעמינו 
+   יחזור אלייך
+   בהקדם האפשרי 
+       `
+    );
+    client.sendMessage(from, media);
+  } 
+
+//If send req for something else
+else if (msg.body.includes('משהו אחר') ) {
     client.sendMessage(
       from,
       `
 *היי*
-נשמח לראותך בין לקוחותינו
-השאר בבקשה מספר טלפון 
-שם מלא
-נציג מטעמינו 
-יחזור אלייך
-בהקדם האפשרי 
-    `
-    );
-    client.sendMessage(from, media);
-  } else if (msg.body.includes('משהו אחר') ) {
-    client.sendMessage(
-      from,
-      `
-*הייs*
 אני מבין שאתה מתעניין
  במשהו אחר תוכל לפרט יותר?    
  `
     );
     client.sendMessage(from, media);
+   
+   }
   }
 });
 
