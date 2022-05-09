@@ -59,7 +59,7 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   let { from,  } = msg;
 
-  if (msg.body.body = 'התחל') {
+  if (msg.body = 'התחל') {
     console.log(msg)
     const contact = await msg.getContact();
     let media = await MessageMedia.fromFilePath("./images/logo.png");
@@ -100,7 +100,8 @@ client.on("message", async (msg) => {
 נשמח לראותך בין לקוחותינו
 השאר בבקשה מספר טלפון 
 שם מלא
-נציג מטעמינו יחזור אלייך
+נציג מטעמינו 
+יחזור אלייך
 בהקדם האפשרי 
     `
     );
