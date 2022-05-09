@@ -59,7 +59,7 @@ client.on("ready", () => {
 client.on("message", async (msg) => {
   let { from,  } = msg;
 
-  if (msg.body.includes("התחל")) {
+  if (msg.body.body = 'התחל') {
     console.log(msg)
     const contact = await msg.getContact();
     let media = await MessageMedia.fromFilePath("./images/logo.png");
@@ -68,16 +68,17 @@ client.on("message", async (msg) => {
     client.sendMessage(
       from,
       `
-${contact.pushname}
-*היי נעים מאוד*
+*${contact.pushname} היי נעים מאוד*
 *ברוך הבא לבוט החכם שלנו*
 *לשעות הפעילות*
-השב/י: שעות
+השב/י: שעות פעילות
 *לרכישת מנוי*
 השב: אני מעוניינ/ת במנוי
 *משהו אחר*
 השב/י: משהו אחר
 
+אנא הקשיבו להוראות
+בתודה צוות הדיגיטל (●'◡'●)
       `
     );
   } else if (msg.body.includes("שעות")  ) {
@@ -97,6 +98,10 @@ ${contact.pushname}
       `
 *היי*
 נשמח לראותך בין לקוחותינו
+השאר בבקשה מספר טלפון 
+שם מלא
+נציג מטעמינו יחזור אלייך
+בהקדם האפשרי 
     `
     );
     client.sendMessage(from, media);
