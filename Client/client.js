@@ -61,17 +61,17 @@ client.on("message", async (msg) => {
   let chat = await msg.getChat();
   const start = ['שלום','היי','מה קורה']
 
-
   // IF it`s not group
-  if (!chat.isGroup) {
 
+  if (!chat.isGroup) {
   // Start Msg
+  
 if(msg.body == 'שלום'){
   const contact = await msg.getContact();
   client.sendMessage(from,
   `
 *${contact.pushname} היי נעים מאוד*
-רוצה לדבר עם הבוט החכה שלנו
+רוצה לדבר ccc עם הבוט החכה שלנו
 השב: התחל
   `)
 } 
