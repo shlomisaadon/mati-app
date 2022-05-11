@@ -57,35 +57,42 @@ client.on("ready", () => {
 });
 
 client.on("message", async (msg) => {
-  let { from,  } = msg;
+  let { from } = msg;
   let chat = await msg.getChat();
-  const start = ['שלום','היי','מה קורה']
+  const start = ["שלום", "היי", "מה קורה"];
 
   // IF it`s not group
 
   if (!chat.isGroup) {
-  // Start Msg
-  
-if(msg.body == 'שלום'){
-  const contact = await msg.getContact();
-  client.sendMessage(from,
-  `
-*${contact.pushname} היי נעים מאוד*
-רוצה לדבר ccc עם הבוט החכה שלנו
-השב: התחל
-  `)
-} 
+    // Start Msg
 
-//If User send MSG - התחל
-else if (msg.body == 'התחל') {
-    console.log(msg)
     const contact = await msg.getContact();
-    let media = await MessageMedia.fromFilePath("./images/logo.png");
-
-    await client.sendMessage(from, media);
-    client.sendMessage(
-      from,
+    if (
+      msg.body.includes("שלום") ||
+      msg.body.includes("היי") ||
+      msg.body.includes("מה נשמע") ||
+      msg.body.includes("עזרה") ||
+      msg.body.includes("מה קורה")
+    ) {
+      client.sendMessage(
+        from,
+        `
+      *${contact.pushname} היי נעים מאוד*
+      רוצה לדבר עם הבוט החכם שלנו
+      השב: התחל
       `
+      );
+    }
+
+    //If User send MSG - התחל
+    else if (msg.body == "התחל") {
+      const contact = await msg.getContact();
+      let media = await MessageMedia.fromFilePath("./images/logo.png");
+
+      await client.sendMessage(from, media);
+      client.sendMessage(
+        from,
+        `
 *ברוך הבא לבוט החכם שלנו*
 *לשעות הפעילות*
 השב/י: שעות פעילות
@@ -97,30 +104,30 @@ else if (msg.body == 'התחל') {
 אנא הקשיבו להוראות
 בתודה צוות הדיגיטל (●'◡'●)
       `
-    );
-  
-  
-  } 
+      );
+    }
 
-//If send req for hours
-else if (msg.body.includes("שעות")  ) {
-    console.log(msg.body)
-    const media = await MessageMedia.fromFilePath("./images/imgTime.png");
-    client.sendMessage(
-      from,
-      `
+    //If send req for hours
+    else if (msg.body.includes("שעות")) {
+      console.log(msg.body);
+      const media = await MessageMedia.fromFilePath("./images/imgTime.png");
+      client.sendMessage(
+        from,
+        `
 *שעות הפעילות*
 נשמח לראותך בין לקוחותינו
     `
-    );
-    client.sendMessage(from, media);
-  } 
-  
-//If send req for signup
-else if (msg.body.includes('במנוי') || msg.body == "אני מעוניין במנוי") {
-    client.sendMessage(
-      from,
-      `
+      );
+      client.sendMessage(from, media);
+    }
+
+    //If send req for signup
+    else if (msg.body.includes("במנוי")) {
+      let media = await MessageMedia.fromFilePath("./images/logo.png");
+
+      client.sendMessage(
+        from,
+        `
    נשמח לראותך בין לקוחותינו
    השאר בבקשה 
    *מספר טלפון* 
@@ -130,23 +137,21 @@ else if (msg.body.includes('במנוי') || msg.body == "אני מעוניין �
    יחזור אלייך
    בהקדם האפשרי 
        `
-    );
-    client.sendMessage(from, media);
-  } 
+      );
+      client.sendMessage(from, media);
+    }
 
-//If send req for something else
-else if (msg.body.includes('משהו אחר') ) {
-    client.sendMessage(
-      from,
-      `
+    //If send req for something else
+    else if (msg.body.includes("אחר")) {
+      client.sendMessage(
+        from,
+        `
 *היי*
 אני מבין שאתה מתעניין
  במשהו אחר תוכל לפרט יותר?    
  `
-    );
-    client.sendMessage(from, media);
-   
-   }
+      );
+    }
   }
 });
 
