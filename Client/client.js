@@ -70,6 +70,7 @@ client.on("message", async (msg) => {
     if (
       msg.body.includes("שלום") ||
       msg.body.includes("היי") ||
+      msg.body.includes("הי") ||
       msg.body.includes("מה נשמע") ||
       msg.body.includes("עזרה") ||
       msg.body.includes("מה קורה")
@@ -100,6 +101,8 @@ client.on("message", async (msg) => {
 השב: אני מעוניינ/ת במנוי
 *משהו אחר*
 השב/י: משהו אחר
+*לכתובת המקום*
+השב/י:מיקום
 
 אנא הקשיבו להוראות
 בתודה צוות הדיגיטל (●'◡'●)
@@ -122,7 +125,7 @@ client.on("message", async (msg) => {
     }
 
     //If send req for signup
-    else if (msg.body.includes("במנוי")) {
+    else if (msg.body.includes("במנוי") || msg.body.includes("מנוי")) {
       let media = await MessageMedia.fromFilePath("./images/logo.png");
 
       client.sendMessage(
@@ -148,10 +151,42 @@ client.on("message", async (msg) => {
         `
 *היי*
 אני מבין שאתה מתעניין
- במשהו אחר תוכל לפרט יותר?    
+במשהו אחר תוכל לפרט יותר?
+נעביר את פנייתך לנציגים שלנו    
  `
       );
-    }
+    }     else if (msg.body.includes("להרשם לשיעור") || 
+                   msg.body.includes('שיעורים') || 
+                   msg.body.includes('שיעור')) {
+      client.sendMessage(
+        from,
+        `
+*היי*
+ההרשמה לשיעורים היא באמצעות 
+האפליקציה שלנו תוכלו להוריד בקישור הבא
+Google Play
+https://play.google.com/store/apps/details?id=il.co.offline.mattiapp
+AppStore
+https://apps.apple.com/us/app/id1450195039    
+ `
+      );
+    }    else if (msg.body.includes('מיקום') || 
+                  msg.body.includes('כתובת') 
+                  ) {
+          client.sendMessage(
+          from,
+`
+*היי*
+הכתובות שלנו הן
+*רמות א*   
+יעקב אלעזר 16
+*רמות ב*
+אסירי ציון 3
+נשמח לראות אותך
+תודה צוות הדיגיטל
+`
+);
+} 
   }
 });
 
