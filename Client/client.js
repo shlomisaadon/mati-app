@@ -64,10 +64,31 @@ client.on("message", async (msg) => {
   // IF it`s not group
 
   if (!chat.isGroup) {
-    // Start Msg
 
     const contact = await msg.getContact();
-    if (
+
+
+
+    //If ask for cancel 
+ if (
+  msg.body.includes('לבטל') || 
+  msg.body.includes('ביטול') 
+              ) {
+      client.sendMessage(
+      from,
+`
+*היי*
+אנחנו מצטערים לשמוע
+אנא פרט את סיבת ביטול המנוי
+ונציג קשרי הלקוחות שלנו 
+יחזור אלייך בהקדם
+בתודה צוות הדיגיטל 
+`
+);
+} 
+
+// Start Msg
+else  if (
       msg.body.includes("שלום") ||
       msg.body.includes("היי") ||
       msg.body.includes("הי") ||
@@ -80,7 +101,7 @@ client.on("message", async (msg) => {
         `
       *${contact.pushname} היי נעים מאוד*
       רוצה לדבר עם הבוט החכם שלנו
-      השב: התחל
+      *השב: *התחל
       `
       );
     }
@@ -124,6 +145,9 @@ client.on("message", async (msg) => {
       client.sendMessage(from, media);
     }
 
+
+
+
     //If send req for signup
     else if (msg.body.includes("במנוי") || msg.body.includes("מנוי")) {
       let media = await MessageMedia.fromFilePath("./images/logo.png");
@@ -155,9 +179,15 @@ client.on("message", async (msg) => {
 נעביר את פנייתך לנציגים שלנו    
  `
       );
-    }     else if (msg.body.includes("להרשם לשיעור") || 
-                   msg.body.includes('שיעורים') || 
-                   msg.body.includes('שיעור')) {
+    }    
+    
+    //If send ask on class
+    else if (
+      msg.body.includes("להרשם לשיעור") || 
+      msg.body.includes('שיעורים') || 
+      msg.body.includes('שיעור')) {
+      let media = await MessageMedia.fromFilePath("./images/studio1.png");
+      let media1 = await MessageMedia.fromFilePath("./images/studio2.png");
       client.sendMessage(
         from,
         `
@@ -170,8 +200,15 @@ AppStore
 https://apps.apple.com/us/app/id1450195039    
  `
       );
-    }    else if (msg.body.includes('מיקום') || 
-                  msg.body.includes('כתובת') 
+      await client.sendMessage(from, media);
+      client.sendMessage(from, media1);
+
+    }    
+    
+    //If ask for loction
+    else if (
+      msg.body.includes('מיקום') || 
+      msg.body.includes('כתובת') 
                   ) {
           client.sendMessage(
           from,
@@ -186,7 +223,8 @@ https://apps.apple.com/us/app/id1450195039
 תודה צוות הדיגיטל
 `
 );
-} 
+}  
+
   }
 });
 
